@@ -1,51 +1,48 @@
 # Rêmora Audio FFT Analyzer
 
-Author: Fredy Osorio (ing.fredyosorio.com)
+Author: Fredy Osorio (ing.fredyosorio@gmail.com)
 
 ## Overview
-Python project for batch FFT analysis of WAV audio files from MarineTraffic/Remora recordings.
+Python toolkit for FFT analysis of MarineTraffic/Rêmora audio recordings.
 
 ## Tools
 
-### 1. fft_plot.py (Original)
-Segmented FFT (20s chunks) for WAV dirs, parallel processing, per-file CSV, peaks, overlay plot.
+### fft_plot.py (Segmented WAV Analyzer)
+Processes WAV dir into 20s segments, FFT + peaks + per-file CSV + overlay plot.
 
 Usage: `python fft_plot.py [wavdir] [--channel N] [--max-freq F] [--linear]`
 
-### 2. Batch Analysis for Bioren Dir
-- **analyze_audio_batch.py**: Full-file FFT (~1min files) for all WAVs in `C:\\Users\\Fredy\\Bioren\\Dept P&D - Audios remora 07-04-26 - norsul rio`, saves `fft/all_fft_results.csv` (frequency + amplitude_dB per file).
-- **plot_fft_csv.py**: Loads CSV, overlays all FFT curves.
+### Batch Full-File FFT (Bioren Audio)
+- **analyze_audio_batch.py**: Low-mem sequential batches (50 files), full FFT, batch CSVs (`fft/all_fft_results_batch_N.csv`: freq + amps_dB), resume (processed_files.txt), progress "file X of TOTAL".
+
+  Usage: `python analyze_audio_batch.py`
+
+- **plot_fft_csv.py**: Plot specific batch CSV or all batches overlaid (limit 100 curves).
+
+  Usage: `python plot_fft_csv.py [csv_path]` (e.g. `fft/all_fft_results_batch_1.csv`)
 
 ## Setup
 ```
 python -m venv .venv
-.venv\Scripts\activate  # Windows
+.venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Usage - Batch
-```
-python analyze_audio_batch.py  # Processes ~280 files (parallel), prints peaks
-python plot_fft_csv.py  # Interactive plot (zoom/pan)
-```
+## Output Examples
+- CSVs: freq bin rows, file amp cols.
+- Plots: Interactive matplotlib, 0-5kHz.
 
-## Output
-- CSV: Rows=freq bins, cols=files' dB amps (skips mismatched fs).
-- Plots: Matplotlib overlay, xlim 0-5kHz, legend.
+## Features
+- Resume after interrupt.
+- Peak detection console.
+- Git ready (.gitignore, initial commit).
+
+## Test Data
+wav/, testFileCreator.py.
 
 ## Dependencies
-requirements.txt: numpy, scipy, matplotlib.
+numpy scipy matplotlib
 
-## Notes
-- Multiprocessing scales to CPUs.
-- Test data in wav/fft/.
-- testFileCreator.py generates test WAVs.
-- Target dir hardcoded, ~44.1kHz assumed.
-
-## .gitignore
-Ignores .venv, *.csv, fft/, TODO.md.
-
-## Author
-Fredy Osorio
-ing.fredyosorio@gmail.com
+## License
+MIT © Fredy Osorio
 
