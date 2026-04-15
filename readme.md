@@ -45,6 +45,7 @@ requirements.txt: numpy, scipy, matplotlib.
 ## .gitignore
 Ignores .venv, *.csv, fft/, TODO.md.
 
-## License
-MIT (c) Fredy Osorio
+## Author
+Fredy Osorio
+ing.fredyosorio@gmail.com
 
